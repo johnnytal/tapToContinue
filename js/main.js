@@ -6,8 +6,7 @@ var gameMain = function(game){
 gameMain.prototype = {
     create: function(){  
         levelsGroup = game.add.group();
-        
-        
+
         level1 = levelsGroup.create(0, 0, 'level1');
         
         timeLabel = this.add.text(280, 10, 'T i m e : ' + time_left, {
@@ -39,135 +38,120 @@ gameMain.prototype = {
         
         screen = document.getElementById('game');
         mc = new Hammer(screen);
-        mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL, threshold: 20 });
+        mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL, threshold: 7 });
         mc.get('pinch').set({ enable: true });
 
-        setTimer();
-        
-        /*try{
-            Cocoon.Ad.AdMob.configure({
-                android: { 
-                    interstitial:"ca-app-pub-9795366520625065/2229270238"
-                }
-            });
-            interstitial = Cocoon.Ad.AdMob.createInterstitial();
-            interstitial.load();
-        } catch(e){}*/
-        
+        setTimer(100);
+
         // level 1 (tap)
+        
         level1.inputEnabled = true;
         level1.events.onInputDown.add(function(){
             level1.destroy();
+            
             level2 = levelsGroup.create(0, 0, 'level2');
             level = 2;
-            
-            time_left = 100;
-            setTimer();
+
+            setTimer(100);
         }, this);
         
         // level 2 (swipe right)
-        if (level == 2){       
-           mc.on("swiperight", function(ev) {
-               if(!ev.handled){
-                    level2.destroy();
-                    level3 = levelsGroup.create(0, 0, 'level3');
-                    level = 3;
-                    
-                    time_left = 250;
-                    setTimer();
-                }
-           });
-        }
-        
+
+        mc.on("swiperight", function(ev) {
+            if(!ev.handled && level == 2){
+                 level2.destroy();
+                 
+                 level3 = levelsGroup.create(0, 0, 'level3');
+                 level = 3;
+ 
+                 setTimer(250);
+             }
+        });
+
         // level 3 (turn up the volume)
-        if (level == 3){        
-           mc.on("swipedown", function(ev) {
-               if(!ev.handled){
-                    level3.destroy();
-                    
-                    //level 4 (don't tap)
-                    level4 = levelsGroup.create(0, 0, 'level4');
-                    level = 4;
-                    level4.inputEnabled = true;
-                    level4.events.onInputDown.add(function(){
-                        gameOver();
-                    }, this);
-                    
-                    time_left = 150;
-                    setTimer();
-                }
-           });
-        }
-        
-        
 
-        
+        mc.on("swipeleft", function(ev) {
+            if(!ev.handled && level == 3){
+                 level3.destroy();
+ 
+                 level4 = levelsGroup.create(0, 0, 'level4');
+                 level = 4;
+                 
+                 setTimer(150);
+                 
+                 // level 4 (don't tap)
+                 
+                 level4.inputEnabled = true;
+                 level4.events.onInputDown.add(function(){
+                     gameOver();
+                 }, this);
+             }
+        });
+
         //level 5 (swipe left)
-        if (level == 5){        
-           mc.on("swipeleft", function(ev) {
-               if(!ev.handled){
-                    level5.destroy();
-                    
-                    //level 6 (pentadruple)
-                    level6 = levelsGroup.create(0, 0, 'level6');
-                    level = 6;
-                    var level6clicks = 0;
-         
-                    level6.inputEnabled = true;
-                    level6.events.onInputDown.add(function(){
-                        level6clicks++;
-            
-                        if (level6clicks == 5 && level == 6){
-                            level6.destroy();
-                            level7 = levelsGroup.create(0, 0, 'level7');
-                            level = 7;
-                            
-                            time_left = 350;
-                            setTimer();    
-                        }
-                    }, this);
-                    
-                    time_left = 120;
-                    setTimer();
-                }
-           });
-        }
 
-        //level 7 (blake)
-        if (level == 7){        
-           mc.on("swiperight", function(ev) {
-               if(!ev.handled){
-                    level7.destroy();
-                    level8 = levelsGroup.create(0, 0, 'level8');
-                    level = 8;
-                    
-                    time_left = 200;
-                    setTimer();
+        mc.on("swipeleft", function(ev) {
+            if(!ev.handled && level == 5){
+                 level5.destroy();
+                 
+                 // level 6 (pentadruple)
+                 
+                 level6 = levelsGroup.create(0, 0, 'level6');
+                 level = 6;
+                 
+                 setTimer(120);
+                 
+                 var level6clicks = 0;
+     
+                 level6.inputEnabled = true;
+                 level6.events.onInputDown.add(function(){
+                     level6clicks++;
         
-                    virusLabel.visible = true;
-                    virusLabel2.visible = true;
-                }
-           });
-        }
+                     if (level6clicks == 5){
+                         level6.destroy();
+                         
+                         level7 = levelsGroup.create(0, 0, 'level7');
+                         level = 7;
+ 
+                         setTimer(350);    
+                     }
+                 }, this);
+             }
+        });
 
-        //level 8 (virus)
-        
-        virusLabel.events.onInputDown.add(function(){
-            if (level == 8){
-                level8.destroy();
-                virusLabel.destroy();
-                virusLabel2.destroy();
+        // level 7 (blake)
+
+        mc.on("swiperight", function(ev) {
+            if(!ev.handled && level == 7){
+                 level7.destroy();
                 
-                level9 = levelsGroup.create(0, 0, 'level9');
-                level = 9;
-            
-                time_left = 100;
-                setTimer();
-            }
-        }, this);
+                 level8 = levelsGroup.create(0, 0, 'level8');
+                 level = 8;
+
+                 setTimer(200);
+    
+                 virusLabel.visible = true;
+                 virusLabel2.visible = true;
+                 
+                 // level 8 (virus)
+    
+                 virusLabel.events.onInputDown.add(function(){
+                     if (level == 8){
+                         level8.destroy();
+                         virusLabel.destroy();
+                         virusLabel2.destroy();
+                         
+                         level9 = levelsGroup.create(0, 0, 'level9');
+                         level = 9;
         
-        //level 9 (zoom)
-        
+                         setTimer(100);
+                     }
+                 }, this);
+              }
+         });
+
+        // level 9 (zoom)
+
         if (level == 9){       
            mc.on("pinchin", function(ev) {
                if(!ev.handled){
@@ -175,14 +159,13 @@ gameMain.prototype = {
                     
                     level10 = levelsGroup.create(0, 0, 'level10');
                     level = 10;
-                    
-                    time_left = 200;
-                    setTimer();
+
+                    setTimer(200);
                 }
            });
         }
 
-        //level 10 (press 4)
+        // level 10 (press 4)
         
         number4.events.onInputDown.add(function(){
             if (level == 10){
@@ -209,16 +192,17 @@ gameMain.prototype = {
             level4.destroy();
             level5 = levelsGroup.create(0, 0, 'level5');
 
-            time_left = 100;
-            setTimer();    
+            setTimer(100);    
         }
     }
 };
 
-function setTimer(){
+function setTimer(_time){
    try{
        clearInterval(timer); 
    } catch(e){}
+   
+   time_left = _time;
       
    timer = setInterval(function(){
        if (time_left > 0){
