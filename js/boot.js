@@ -1,9 +1,15 @@
 //document.addEventListener("deviceready", start, false);
 window.onload = start;
 
-function start(){   
-    game = new Phaser.Game(850, 1100, Phaser.CANVAS, "game");    
-      
+function start(){
+    WIDTH = 850; 
+    HEIGHT = 1100;
+    
+    w = window.innerWidth * window.devicePixelRatio;
+    h = window.innerHeight * window.devicePixelRatio;
+
+    game = new Phaser.Game(WIDTH, HEIGHT, Phaser.CANVAS, 'game');
+
     game.state.add("Boot", boot);
     game.state.add("Preloader", preloader);
     game.state.add("Game", gameMain);
@@ -12,18 +18,31 @@ function start(){
 };
 
 var boot = function(game){};
+
 boot.prototype = {
-    create: function(){
-        font = 'Luckiest Guy'; 
-
-        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-
-        this.scale.maxWidth = window.innerWidth * window.devicePixelRatio;
-        this.scale.maxHeight = window.innerHeight * window.devicePixelRatio;
-        
-        this.scale.forceOrientation(false, true);
+    preload: function(){},
     
+    create: function(){  
+        font = 'Luckiest Guy';   
+        var interstitial;
+        
+        game.stage.backgroundColor = '#000000';
+
+        if (this.game.device.desktop){
+
+        } 
+        
+        else {
+            this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+
+            this.scale.maxWidth = w;
+            this.scale.maxHeight = h;
+            
+            this.scale.forceOrientation(true, false );
+        }
+        
         game.state.start('Preloader');
     }
 };
+
 

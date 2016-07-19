@@ -84,7 +84,7 @@ gameMain.prototype = {
            });
         }
         
-        else{
+       /* else{
             level2.inputEnabled = true;
             level2.events.onInputDown.add(function(){
                 level2.destroy();
@@ -93,7 +93,7 @@ gameMain.prototype = {
                 time_left = 250;
                 setTimer();
             }, this);    
-        }
+        }*/
         
         // level 3 (turn up the volume)
         if (!this.game.device.desktop && level == 3){        
@@ -106,7 +106,7 @@ gameMain.prototype = {
            });
         }
         
-        else{
+       /* else{
             level3.inputEnabled = true;
             level3.events.onInputDown.add(function(){
                 level3.destroy();
@@ -115,7 +115,7 @@ gameMain.prototype = {
                 time_left = 150;
                 setTimer();
             }, this);    
-        }
+        }*/
         
         //level 4 (don't tap)
         level4.inputEnabled = true;
@@ -134,7 +134,7 @@ gameMain.prototype = {
            });
         }
         
-       else{
+       /*else{
             level5.inputEnabled = true;
             level5.events.onInputDown.add(function(){
                 level5.destroy();
@@ -143,7 +143,7 @@ gameMain.prototype = {
                 time_left = 120;
                 setTimer();
             }, this);    
-        }
+        }*/
         
         //level 6 (pentadruple)
         var level6clicks = 0;
@@ -176,7 +176,7 @@ gameMain.prototype = {
            });
         }
         
-        else{
+        /*else{
             level7.inputEnabled = true;
             level7.events.onInputDown.add(function(){
                 level7.destroy();
@@ -189,7 +189,7 @@ gameMain.prototype = {
                 virusLabel2.visible = true;
       
             }, this);    
-        }
+        }*/
 
         //level 8 (virus)
         
@@ -218,7 +218,7 @@ gameMain.prototype = {
            });
         }
         
-        else{
+       /* else{
             level9.inputEnabled = true;
             level9.events.onInputDown.add(function(){
                 level9.destroy();
@@ -229,7 +229,7 @@ gameMain.prototype = {
                 
                 number4.visible = true;
             }, this);    
-        }
+        }*/
         
         //level 10 (press 4)
         
@@ -244,8 +244,6 @@ gameMain.prototype = {
                 finishGame();
             }
         }, this);
-        
-
     },
 
     update: function(){
