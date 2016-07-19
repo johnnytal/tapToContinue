@@ -6,7 +6,8 @@ var gameMain = function(game){
 gameMain.prototype = {
     create: function(){  
         levelsGroup = game.add.group();
-
+        
+        
         level1 = levelsGroup.create(0, 0, 'level1');
         
         timeLabel = this.add.text(280, 10, 'T i m e : ' + time_left, {
@@ -83,8 +84,14 @@ gameMain.prototype = {
            mc.on("swipedown", function(ev) {
                if(!ev.handled){
                     level3.destroy();
+                    
+                    //level 4 (don't tap)
                     level4 = levelsGroup.create(0, 0, 'level4');
                     level = 4;
+                    level4.inputEnabled = true;
+                    level4.events.onInputDown.add(function(){
+                        gameOver();
+                    }, this);
                     
                     time_left = 150;
                     setTimer();
@@ -92,42 +99,39 @@ gameMain.prototype = {
            });
         }
         
-        //level 4 (don't tap)
-        level4.inputEnabled = true;
-        level4.events.onInputDown.add(function(){
-            gameOver();
-        }, this);
+        
+
         
         //level 5 (swipe left)
         if (level == 5){        
            mc.on("swipeleft", function(ev) {
                if(!ev.handled){
                     level5.destroy();
+                    
+                    //level 6 (pentadruple)
                     level6 = levelsGroup.create(0, 0, 'level6');
                     level = 6;
+                    var level6clicks = 0;
+         
+                    level6.inputEnabled = true;
+                    level6.events.onInputDown.add(function(){
+                        level6clicks++;
+            
+                        if (level6clicks == 5 && level == 6){
+                            level6.destroy();
+                            level7 = levelsGroup.create(0, 0, 'level7');
+                            level = 7;
+                            
+                            time_left = 350;
+                            setTimer();    
+                        }
+                    }, this);
                     
                     time_left = 120;
                     setTimer();
                 }
            });
         }
-
-        //level 6 (pentadruple)
-        var level6clicks = 0;
-         
-        level6.inputEnabled = true;
-        level6.events.onInputDown.add(function(){
-            level6clicks++;
-
-            if (level6clicks == 5 && level == 6){
-                level6.destroy();
-                level7 = levelsGroup.create(0, 0, 'level7');
-                level = 7;
-                
-                time_left = 350;
-                setTimer();    
-            }
-        }, this);
 
         //level 7 (blake)
         if (level == 7){        

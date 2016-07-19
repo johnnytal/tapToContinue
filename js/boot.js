@@ -1,5 +1,5 @@
-document.addEventListener("deviceready", start, false);
-//window.onload = start;
+//document.addEventListener("deviceready", start, false);
+window.onload = start;
 
 function start(){
     WIDTH = 850; 
@@ -22,7 +22,7 @@ boot.prototype = {
     create: function(){  
         font = 'Luckiest Guy';   
         var interstitial;
-        
+
         game.stage.backgroundColor = '#000000';
 
         if (!this.game.device.desktop){
