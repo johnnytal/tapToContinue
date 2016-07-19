@@ -38,7 +38,7 @@ gameMain.prototype = {
         
         screen = document.getElementById('game');
         mc = new Hammer(screen);
-        mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL, threshold: 7 });
+        mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL, threshold: 10 });
         mc.get('pinch').set({ enable: true });
 
         setTimer(100);
@@ -152,32 +152,28 @@ gameMain.prototype = {
 
         // level 9 (zoom)
 
-        if (level == 9){       
-           mc.on("pinchin", function(ev) {
-               if(!ev.handled){
-                    level9.destroy();
+        mc.on("pinchout", function(ev) {
+            if(!ev.handled && level == 9){
+                 level9.destroy();
+                
+                 level10 = levelsGroup.create(0, 0, 'level10');
+                 level = 10;
+
+                 setTimer(200);
+                
+                 // level 10 (press 4)
+    
+                 number4.events.onInputDown.add(function(){
+                    level10.destroy();
+                    number4.destroy();
                     
-                    level10 = levelsGroup.create(0, 0, 'level10');
-                    level = 10;
-
-                    setTimer(200);
-                }
-           });
-        }
-
-        // level 10 (press 4)
-        
-        number4.events.onInputDown.add(function(){
-            if (level == 10){
-                
-                level10.destroy();
-                number4.destroy();
-                
-                level = 11;
-                
-                finishGame();
+                    level = 11;
+                    
+                    finishGame();
+                    
+                }, this);
             }
-        }, this);
+       });
     },
 
     update: function(){
