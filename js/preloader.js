@@ -15,7 +15,7 @@ preloader.prototype = {
        
         this.game.load.image("number4","assets/images/number4.png");
 
-        //this.game.load.audio('sfxCricket', ['assets/audio/crickets.ogg', 'assets/audio/crickets.mp3']);
+        this.game.load.audio('swipeLeftSfx', 'assets/audio/swipeLeft.ogg');
     },
     
     create: function(){

@@ -24,15 +24,13 @@ gameMain.prototype = {
         virusLabel.inputEnabled = true;
         virusLabel.visible = false;
         virusLabel2.visible = false;
-
-        number4 = game.add.sprite(600, 870, 'number4');
-        number4.inputEnabled = true;
-        number4.visible = false;
         
         finishLabel = game.add.text(65, 150, 'You Won! \n\n Thanks for playing. \n\n You can offer me more riddles\nfor the next release at\n\njohnnytal9@gmail.com\n\nCredit guarnteed', {
             font: '48px Luckiest Guy', fill: 'white', fontWeight: 'normal', align: 'center'
         });
         finishLabel.visible = false;
+        
+        sfxSwipeLeft = game.add.audio('swipeLeftSfx', 1, true);
 
         try{ mc.destroy(); }catch(e){}
         
@@ -63,6 +61,7 @@ gameMain.prototype = {
                  
                  level3 = levelsGroup.create(0, 0, 'level3');
                  level = 3;
+                 sfxSwipeLeft.play();
  
                  setTimer(250);
              }
@@ -73,6 +72,7 @@ gameMain.prototype = {
         mc.on("swipeleft", function(ev) {
             if(!ev.handled && level == 3){
                  level3.destroy();
+                 sfxSwipeLeft.stop();
  
                  level4 = levelsGroup.create(0, 0, 'level4');
                  level = 4;
@@ -162,6 +162,10 @@ gameMain.prototype = {
                  setTimer(200);
                 
                  // level 10 (press 4)
+                 
+                 number4 = game.add.sprite(600, 870, 'number4');
+                 number4.inputEnabled = true;
+                 number4.visible = false;
     
                  number4.events.onInputDown.add(function(){
                     level10.destroy();
