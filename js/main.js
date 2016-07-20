@@ -165,8 +165,6 @@ gameMain.prototype = {
                  
                  number4 = game.add.sprite(600, 870, 'number4');
                  number4.inputEnabled = true;
-                 number4.visible = false;
-    
                  number4.events.onInputDown.add(function(){
                     level10.destroy();
                     number4.destroy();
