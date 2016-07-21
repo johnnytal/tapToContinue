@@ -1,6 +1,7 @@
 var gameMain = function(game){
-    time_left = 100;
+    time_left = 15;
     level = 1;
+    tries = 1;
 };
 
 gameMain.prototype = {
@@ -9,27 +10,32 @@ gameMain.prototype = {
 
         level1 = levelsGroup.create(0, 0, 'level1');
         
-        timeLabel = this.add.text(280, 10, 'T i m e : ' + time_left, {
-            font: '56px ' + font, fill: 'red', fontWeight: 'normal', align: 'center', stroke:'#ffffff', strokeThickness: 3
+        timeLabel = this.add.text(350, 10, '0:' + time_left, {
+            font: '56px Luckiest Guy', fill: 'red', fontWeight: 'normal', align: 'center', stroke:'#ffffff', strokeThickness: 3
         });
         timeLabel.alpha = 0.6;
         
-        virusLabel = this.add.text(20, 950, 'http://5z8.info/spamBot_t4u7_steal-ip/hotGoats.mov', {
-            font: '38px', fill: 'blue', fontWeight: 'normal', align: 'center'
+        triesLabel = this.add.text(600, 1020, 'T r i e s : ' + tries, {
+            font: '42px Luckiest Guy', fill: 'blue', fontWeight: 'normal', align: 'center', stroke:'#ffffff', strokeThickness: 3
         });
-        virusLabel2 = this.add.text(20, 955, '___________________________________________', {
+        tries.alpha = 0.6;
+        
+        virusLabel = this.add.text(60, 940, 'http://5z8.spy/t4u7-steal-ip/hot_goats.mov', {
+            font: '42px', fill: 'blue', fontWeight: 'normal', align: 'center'
+        });
+        virusLabel2 = this.add.text(55, 945, '______________________________________', {
             font: '38px', fill: 'blue', fontWeight: 'normal', align: 'center'
         });
         
         virusLabel.inputEnabled = true;
         virusLabel.visible = false;
         virusLabel2.visible = false;
-        
-        finishLabel = game.add.text(65, 150, 'You Won! \n\n Thanks for playing. \n\n You can offer me more riddles\nfor the next release at\n\njohnnytal9@gmail.com\n\nCredit guarnteed', {
+
+        finishLabel = game.add.text(65, 150, 'You Won! \n\n And it took you only ' + tries + ' tries. \n\n Offer me more riddles\nfor the next release\n(Credit guarnteed)\n\njohnnytal9@gmail.com\n\n Tap to Continue', {
             font: '48px Luckiest Guy', fill: 'white', fontWeight: 'normal', align: 'center'
         });
-        finishLabel.visible = false;
-        
+        finishLabel.visible = false;   
+
         sfxSwipeLeft = game.add.audio('swipeLeftSfx', 1, true);
 
         try{ mc.destroy(); }catch(e){}
@@ -39,10 +45,10 @@ gameMain.prototype = {
         mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL, threshold: 10 });
         mc.get('pinch').set({ enable: true });
 
-        setTimer(100);
+        setTimer(15);
 
         // level 1 (tap)
-        
+
         level1.inputEnabled = true;
         level1.events.onInputDown.add(function(){
             level1.destroy();
@@ -50,7 +56,7 @@ gameMain.prototype = {
             level2 = levelsGroup.create(0, 0, 'level2');
             level = 2;
 
-            setTimer(100);
+            setTimer(5);
         }, this);
         
         // level 2 (swipe right)
@@ -63,7 +69,7 @@ gameMain.prototype = {
                  level = 3;
                  sfxSwipeLeft.play();
  
-                 setTimer(250);
+                 setTimer(7);
              }
         });
 
@@ -77,7 +83,7 @@ gameMain.prototype = {
                  level4 = levelsGroup.create(0, 0, 'level4');
                  level = 4;
                  
-                 setTimer(150);
+                 setTimer(6);
                  
                  // level 4 (don't tap)
                  
@@ -99,7 +105,7 @@ gameMain.prototype = {
                  level6 = levelsGroup.create(0, 0, 'level6');
                  level = 6;
                  
-                 setTimer(120);
+                 setTimer(6);
                  
                  var level6clicks = 0;
      
@@ -113,7 +119,7 @@ gameMain.prototype = {
                          level7 = levelsGroup.create(0, 0, 'level7');
                          level = 7;
  
-                         setTimer(350);    
+                         setTimer(12);    
                      }
                  }, this);
              }
@@ -128,7 +134,7 @@ gameMain.prototype = {
                  level8 = levelsGroup.create(0, 0, 'level8');
                  level = 8;
 
-                 setTimer(200);
+                 setTimer(7);
     
                  virusLabel.visible = true;
                  virusLabel2.visible = true;
@@ -144,7 +150,7 @@ gameMain.prototype = {
                          level9 = levelsGroup.create(0, 0, 'level9');
                          level = 9;
         
-                         setTimer(100);
+                         setTimer(4);
                      }
                  }, this);
               }
@@ -159,7 +165,7 @@ gameMain.prototype = {
                  level10 = levelsGroup.create(0, 0, 'level10');
                  level = 10;
 
-                 setTimer(200);
+                 setTimer(5);
                 
                  // level 10 (press 4)
                  
@@ -180,17 +186,22 @@ gameMain.prototype = {
 
     update: function(){
         if (time_left < 1){
-            time_left = 100;
+            time_left = 15;
             gameOver();
         }
     
-        if (time_left == 5 && level == 4){
+        if (time_left == 1 && level == 4){
             level = 5;
             
             level4.destroy();
             level5 = levelsGroup.create(0, 0, 'level5');
 
-            setTimer(100);    
+            setTimer(3);    
+        }
+        
+            
+        if(game.input.activePointer.isDown && level == 11){
+            this.game.state.start("Boot");   
         }
     }
 };
@@ -205,17 +216,23 @@ function setTimer(_time){
    timer = setInterval(function(){
        if (time_left > 0){
            time_left--;
-           timeLabel.text = 'T i m e : ' + time_left; 
+           timeLabel.text = '0:' + time_left; 
            
            if (time_left < 10) {
-               timeLabel.text = 'T i m e : 0' + time_left; 
+               timeLabel.text = '0:0' + time_left; 
            }
        }
-    }, 30);    
+    }, 1000);    
 }
 
 function gameOver(){
-    this.game.state.start("Boot"); 
+    try{
+        sfxSwipeLeft.stop();
+    } catch(e){}
+    tries++;
+    triesLabel.text = 'T r i e s : ' + tries;
+    
+    this.game.state.start("Game"); 
 }
 
 function finishGame(){
