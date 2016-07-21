@@ -20,18 +20,18 @@ gameMain.prototype = {
         });
         tries.alpha = 0.6;
         
-        virusLabel = this.add.text(60, 940, 'http://5z8.spy/t4u7-steal-ip/hot_goats.mov', {
-            font: '42px', fill: 'blue', fontWeight: 'normal', align: 'center'
+        virusLabel = this.add.text(45, 940, 'http://5z8.spy/t4u7-steal-ip/hot_goats.mov', {
+            font: '40px', fill: 'blue', fontWeight: 'normal', align: 'center'
         });
-        virusLabel2 = this.add.text(55, 945, '______________________________________', {
-            font: '38px', fill: 'blue', fontWeight: 'normal', align: 'center'
+        virusLabel2 = this.add.text(40, 945, '________________________________________', {
+            font: '36px', fill: 'blue', fontWeight: 'normal', align: 'center'
         });
         
         virusLabel.inputEnabled = true;
         virusLabel.visible = false;
         virusLabel2.visible = false;
 
-        finishLabel = game.add.text(65, 150, 'You Won! \n\n And it took you only ' + tries + ' tries. \n\n Offer me more riddles\nfor the next release\n(Credit guarnteed)\n\njohnnytal9@gmail.com\n\n Tap to Continue', {
+        finishLabel = game.add.text(65, 150, 'You Won! \n\n And it took you only ' + tries + ' tries. \n\n Offer me more riddles\nfor the next release\n(Credit guarnteed)\n\njohnnytal9@gmail.com', {
             font: '48px Luckiest Guy', fill: 'white', fontWeight: 'normal', align: 'center'
         });
         finishLabel.visible = false;   
@@ -200,9 +200,9 @@ gameMain.prototype = {
         }
         
             
-        if(game.input.activePointer.isDown && level == 11){
+       /* if(game.input.activePointer.isDown && level == 11){
             this.game.state.start("Boot");   
-        }
+        }*/
     }
 };
 
@@ -239,6 +239,7 @@ function finishGame(){
     /*try{
         interstitial.show();
     } catch(e){}   */
+    tries = 0;
     
     clearInterval(timer);
     timeLabel.destroy();
