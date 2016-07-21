@@ -239,7 +239,7 @@ function finishGame(){
     /*try{
         interstitial.show();
     } catch(e){}   */
-    tries = 0;
+    //tries = 0;
     
     clearInterval(timer);
     timeLabel.destroy();
