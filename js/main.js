@@ -16,14 +16,14 @@ gameMain.prototype = {
         timeLabel.alpha = 0.6;
         
         triesLabel = this.add.text(600, 1020, 'T r i e s : ' + tries, {
-            font: '42px Luckiest Guy', fill: 'blue', fontWeight: 'normal', align: 'center', stroke:'#ffffff', strokeThickness: 3
+            font: '42px Luckiest Guy', fill: 'darkblue', fontWeight: 'normal', align: 'center', stroke:'#ffffff', strokeThickness: 3
         });
         tries.alpha = 0.6;
         
-        virusLabel = this.add.text(45, 940, 'http://5z8.spy/t4u7-steal-ip/hot_goats.mov', {
+        virusLabel = this.add.text(45, 940, 'http://5z8.spy/t4u7-steal.ip/hot-goats.mov', {
             font: '40px', fill: 'blue', fontWeight: 'normal', align: 'center'
         });
-        virusLabel2 = this.add.text(40, 945, '________________________________________', {
+        virusLabel2 = this.add.text(40, 945, '__________________________________________', {
             font: '36px', fill: 'blue', fontWeight: 'normal', align: 'center'
         });
         
@@ -212,6 +212,7 @@ function setTimer(_time){
    } catch(e){}
    
    time_left = _time;
+   timeLabel.text = '0:0' + time_left; 
       
    timer = setInterval(function(){
        if (time_left > 0){
@@ -243,6 +244,7 @@ function finishGame(){
     
     clearInterval(timer);
     timeLabel.destroy();
+    triesLabel.destroy();
     
     finishLabel.visible = true;
 }
