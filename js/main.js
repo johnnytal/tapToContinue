@@ -23,7 +23,7 @@ gameMain.prototype = {
         virusLabel = this.add.text(45, 940, 'http://5z8.spy/t4u7-steal.ip/hot-goats.mov', {
             font: '40px', fill: 'blue', fontWeight: 'normal', align: 'center'
         });
-        virusLabel2 = this.add.text(40, 945, '__________________________________________', {
+        virusLabel2 = this.add.text(40, 945, '____________________________________________', {
             font: '36px', fill: 'blue', fontWeight: 'normal', align: 'center'
         });
         
@@ -31,7 +31,7 @@ gameMain.prototype = {
         virusLabel.visible = false;
         virusLabel2.visible = false;
 
-        finishLabel = game.add.text(65, 150, 'You Won! \n\n And it took you only ' + tries + ' tries. \n\n Offer me more riddles\nfor the next release\n(Credit guarnteed)\n\njohnnytal9@gmail.com', {
+        finishLabel = game.add.text(70, 150, 'You Won! \n\n And it took you only ' + tries + ' tries. \n\n Offer me more riddles\nfor the next release\n(Credit guarnteed)\n\njohnnytal9@gmail.com', {
             font: '48px Luckiest Guy', fill: 'white', fontWeight: 'normal', align: 'center'
         });
         finishLabel.visible = false;   
@@ -44,6 +44,19 @@ gameMain.prototype = {
         mc = new Hammer(screen);
         mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL, threshold: 10 });
         mc.get('pinch').set({ enable: true });
+        
+        try{
+            Cocoon.Ad.AdMob.configure({
+                android: { 
+                      interstitial:""
+                }
+            });
+            
+            interstitial = Cocoon.Ad.AdMob.createInterstitial();
+            interstitial.load();
+            
+            bannerNotCraeted = false;
+        } catch(e){}
 
         setTimer(15);
 
@@ -198,11 +211,6 @@ gameMain.prototype = {
 
             setTimer(3);    
         }
-        
-            
-       /* if(game.input.activePointer.isDown && level == 11){
-            this.game.state.start("Boot");   
-        }*/
     }
 };
 
@@ -212,8 +220,13 @@ function setTimer(_time){
    } catch(e){}
    
    time_left = _time;
-   timeLabel.text = '0:0' + time_left; 
-      
+   if (time_left < 10) {
+       timeLabel.text = '0:0' + time_left; 
+   }
+   else{
+       timeLabel.text = '0:' + time_left; 
+   }
+   
    timer = setInterval(function(){
        if (time_left > 0){
            time_left--;
@@ -237,11 +250,10 @@ function gameOver(){
 }
 
 function finishGame(){
-    /*try{
+    try{
         interstitial.show();
-    } catch(e){}   */
-    //tries = 0;
-    
+    } catch(e){}   
+
     clearInterval(timer);
     timeLabel.destroy();
     triesLabel.destroy();
