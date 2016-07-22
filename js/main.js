@@ -253,6 +253,10 @@ function finishGame(){
     try{
         interstitial.show();
     } catch(e){}   
+    try{
+        level5.destroy();
+    } catch(e){}   
+
 
     clearInterval(timer);
     timeLabel.destroy();
