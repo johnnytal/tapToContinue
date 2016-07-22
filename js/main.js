@@ -202,9 +202,9 @@ gameMain.prototype = {
         }
     
         if (time_left == 1 && level == 4){
-            setTimeout(function(){
-                level = 5;
+            level = 5;
             
+            setTimeout(function(){
                 level4.destroy();
                 level5 = levelsGroup.create(0, 0, 'level5');
     
@@ -253,10 +253,6 @@ function finishGame(){
     try{
         interstitial.show();
     } catch(e){}   
-    try{
-        level5.destroy();
-    } catch(e){}   
-
 
     clearInterval(timer);
     timeLabel.destroy();
