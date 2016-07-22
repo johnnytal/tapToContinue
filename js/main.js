@@ -48,7 +48,7 @@ gameMain.prototype = {
         try{
             Cocoon.Ad.AdMob.configure({
                 android: { 
-                      interstitial:""
+                      interstitial:"ca-app-pub-9795366520625065/2783903038"
                 }
             });
             
