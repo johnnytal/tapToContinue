@@ -14,16 +14,16 @@ gameMain.prototype = {
             font: '56px Luckiest Guy', fill: 'red', fontWeight: 'normal', align: 'center', stroke:'#ffffff', strokeThickness: 3
         });
         timeLabel.alpha = 0.6;
-        
+
         triesLabel = this.add.text(600, 1020, 'T r i e s : ' + tries, {
             font: '42px Luckiest Guy', fill: 'darkblue', fontWeight: 'normal', align: 'center', stroke:'#ffffff', strokeThickness: 3
         });
-        tries.alpha = 0.6;
-        
+        triesLabel.alpha = 0.6;  
+
         virusLabel = this.add.text(45, 940, 'http://5z8.spy/t4u7-steal.ip/hot-goats.mov', {
             font: '40px', fill: 'blue', fontWeight: 'normal', align: 'center'
         });
-        virusLabel2 = this.add.text(40, 945, '____________________________________________', {
+        virusLabel2 = this.add.text(40, 945, '_____________________________________________', {
             font: '36px', fill: 'blue', fontWeight: 'normal', align: 'center'
         });
         
@@ -54,14 +54,12 @@ gameMain.prototype = {
             
             interstitial = Cocoon.Ad.AdMob.createInterstitial();
             interstitial.load();
-            
-            bannerNotCraeted = false;
         } catch(e){}
 
         setTimer(15);
 
         // level 1 (tap)
-
+        
         level1.inputEnabled = true;
         level1.events.onInputDown.add(function(){
             level1.destroy();
@@ -204,12 +202,14 @@ gameMain.prototype = {
         }
     
         if (time_left == 1 && level == 4){
-            level = 5;
+            setTimeout(function(){
+                level = 5;
             
-            level4.destroy();
-            level5 = levelsGroup.create(0, 0, 'level5');
-
-            setTimer(3);    
+                level4.destroy();
+                level5 = levelsGroup.create(0, 0, 'level5');
+    
+                setTimer(3);      
+            }, 350);
         }
     }
 };
